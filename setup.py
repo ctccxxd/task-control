@@ -11,7 +11,7 @@ setuptools.setup(
     description="framework for flow-control",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ctccxxd/task-dag-control",
+    url="https://github.com/ctccxxd/task-control",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3 :: Only",
