@@ -66,7 +66,7 @@ TASK_CONFIG = {
 
 
 def main():
-    log.debug('Hello, Freactor!')
+    log.debug('Hello, TaskPool!')
 
     f = TaskPool({
         'task_config': TASK_CONFIG,

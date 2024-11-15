@@ -282,7 +282,7 @@ class TaskPool(object):
             a = Actor({'queue': self._queue, 'epoll': self._epoll, 'events': self._events, 'import_reducer_prefix': self._import_reducer_prefix})
             a.start()
             self._actors.append(a)
-        log.debug('task-dag-bac init done')
+        log.debug('freactor init done')
         log.debug(self._task_config)
 
     def run_task(self, name, params, delay=None):
@@ -298,7 +298,7 @@ class TaskPool(object):
         self._queue.put(msg)
 
 
-# For usual and best practice, we define the most common status transfer code as below:
+# For usual and best practice, we define the most common result transfer code as below:
 class StepResultCode(object):
     SUCCESS = 'SUCCESS'
     FAILURE = 'FAILURE'

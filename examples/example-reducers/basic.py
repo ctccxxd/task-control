@@ -4,7 +4,7 @@ from time import sleep
 import logging
 log = logging.getLogger(__name__)
 
-from taskmanager import TaskPool, StepResultCode, step_retry_delay
+from taskmanager import StepResultCode, step_retry_delay
 
 SUCCESS = StepResultCode.SUCCESS
 FAILURE = StepResultCode.FAILURE

@@ -1,3 +1,3 @@
-# Freactor Package
+# Manager Package
 
-This is a framework for task-dag-control-flow management with timerfd/epoll.
+This is an application library/framework for general task control-flow management.
