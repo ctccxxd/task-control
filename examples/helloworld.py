@@ -2,12 +2,12 @@ import logging
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-from freactor import Freactor, StatusCode
+from taskmanager import TaskPool, StepResultCode
 
-SUCCESS = StatusCode.SUCCESS
-FAILURE = StatusCode.FAILURE
-RETRY = StatusCode.RETRY
-ABORT = StatusCode.ABORT
+SUCCESS = StepResultCode.SUCCESS
+FAILURE = StepResultCode.FAILURE
+RETRY = StepResultCode.RETRY
+ABORT = StepResultCode.ABORT
 
 TASK_CONFIG = {
     'example_task_1': {
@@ -68,7 +68,7 @@ TASK_CONFIG = {
 def main():
     log.debug('Hello, Freactor!')
 
-    f = Freactor({
+    f = TaskPool({
         'task_config': TASK_CONFIG,
         'import_reducer_prefix': 'example-reducers.',
         'threads': 4,

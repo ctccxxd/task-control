@@ -107,7 +107,7 @@ class EventFd(object):
             raise
 
 
-# Freactor Implementation
+# TaskPool Implementation
 # update output, find next step, queue consumer, event producer
 class Conductor(Thread):
     def __init__(self, config):
@@ -259,9 +259,9 @@ class Actor(Thread):
 
 
 # init threads/queue/epoll, and record tasks
-class Freactor(object):
+class TaskPool(object):
     def __init__(self, config):
-        super(Freactor, self).__init__()
+        super(TaskPool, self).__init__()
         self._task_config = config.get('task_config')
         self._import_reducer_prefix = config.get('import_reducer_prefix', '')
         self._num_actor_threads = config.get('threads', 4)
@@ -282,7 +282,7 @@ class Freactor(object):
             a = Actor({'queue': self._queue, 'epoll': self._epoll, 'events': self._events, 'import_reducer_prefix': self._import_reducer_prefix})
             a.start()
             self._actors.append(a)
-        log.debug('freactor init done')
+        log.debug('task-dag-bac init done')
         log.debug(self._task_config)
 
     def run_task(self, name, params, delay=None):
@@ -299,7 +299,7 @@ class Freactor(object):
 
 
 # For usual and best practice, we define the most common status transfer code as below:
-class StatusCode(object):
+class StepResultCode(object):
     SUCCESS = 'SUCCESS'
     FAILURE = 'FAILURE'
     RETRY = 'RETRY'
@@ -310,7 +310,7 @@ class StatusCode(object):
 # This decorator treats unhandled exceptions as general failure(code 1) and perform (optionally) retries.
 # Business Reducers now can handle failure/retry logic by self, as well as by doing `raise`.
 # To use this decorator, business code should conform to the code convention above.
-def freducer(retry=3, delay=3):
+def step_retry_delay(retry=3, delay=3):
     def deco(f):
         @wraps(f)
         def wrapper(t_data):
@@ -323,8 +323,8 @@ def freducer(retry=3, delay=3):
                 result = {}
                 result[k] = retried
                 if retried > retry:
-                    return StatusCode.FAILURE, {}, '%s general-failure after genearl-retry %s times: %s' % (f.__name__, retry, e)
+                    return StepResultCode.FAILURE, {}, '%s general-failure after genearl-retry %s times: %s' % (f.__name__, retry, e)
                 else:
-                    return StatusCode.RETRY, result, 'f1 general-retry', delay
+                    return StepResultCode.RETRY, result, 'f1 general-retry', delay
         return wrapper
     return deco

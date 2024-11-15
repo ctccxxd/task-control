@@ -4,8 +4,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="task-dag-control",
-    version="0.0.3",
+    name="taskmanager",
+    version="0.0.1",
     author="Shane",
     author_email="imu_xxd@163.com",
     description="framework for flow-control",
