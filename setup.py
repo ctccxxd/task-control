@@ -7,7 +7,7 @@ setuptools.setup(
     name="taskmanager",
     version="0.0.1",
     author="Shane",
-    author_email="imu_xxd@vip.qq.com",
+    author_email="imu_xxd@163.com",
     description="framework for flow-control",
     long_description=long_description,
     long_description_content_type="text/markdown",
